@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gemini Watermark Remover for Images &amp; Videos | Clearframe Studio</title>
+<meta content="index, follow" name="robots"/>
+<meta content="#ffffff" name="theme-color"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="default" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="Gemini Remover" name="apple-mobile-web-app-title"/>
+<!-- Open Graph / Facebook -->
+<meta content="website" property="og:type"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="Free Gemini Watermark Remover &amp; Logo Remover" property="og:image:alt"/>
+<meta content="en_US" property="og:locale"/>
+<!-- Twitter -->
+<meta content="summary_large_image" property="twitter:card"/>
+<meta content="Free Gemini Watermark Remover &amp; Logo Remover" property="twitter:image:alt"/>
+<!-- Structured Data (JSON-LD) -->
+<!-- Performance Resource Hints & Font Preconnects -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://code.iconify.design" rel="dns-prefetch"/>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="./style.css" rel="stylesheet"/>
+<script defer="" src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<link href="./favicon.svg" rel="icon" type="image/svg+xml"/><link href="./clearframe.css" rel="stylesheet"/><meta content="Free Gemini watermark remover for images and videos. Adjust compatible Gemini, Google Flow, Nano Banana and Veo logo overlays in your browser. No account required." name="description"/><meta content="Gemini Watermark Remover for Images &amp; Videos | Clearframe Studio" property="og:title"/><meta content="Private browser-based Gemini watermark remover for images and videos with adjustable previews and exports." property="og:description"/><meta content="Clearframe Studio" property="og:site_name"/><meta content="Gemini Watermark Remover for Images &amp; Videos | Clearframe Studio" name="twitter:title"/><meta content="Free browser-based Gemini image and video watermark remover." name="twitter:description"/><meta content="index,follow,max-image-preview:large" name="googlebot"/><meta content="index,follow,max-image-preview:large" name="robots"/><link href="/" rel="canonical"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Clearframe Studio – Gemini Watermark Remover", "applicationCategory": "MultimediaApplication", "operatingSystem": "Modern desktop and mobile browsers", "description": "Browser-based tool for adjusting compatible visible Gemini, Google Flow, Nano Banana and Veo watermarks in images and videos.", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script><link href="/seo.css" rel="stylesheet"/></head>
+<body>
+<!-- Top Navigation Header -->
+<header class="app-header"><div class="cf-nav"><a class="cf-brand" href="/"><span class="cf-mark">C<span>✦</span></span><span>clearframe<span class="cf-brand-dot">.</span></span></a><nav class="cf-links"><a href="#workspace">Workspace</a><a href="/guides/">Guides</a><a href="#how-it-works">How it works</a><a href="#faq">FAQs</a></nav><a class="cf-nav-cta" href="#workspace">Open studio <span>↗</span></a></div></header>
+<main class="container">
+<!-- Hero Section -->
+<div class="hero-section"><div class="cf-eyebrow"><span class="cf-live-dot"></span> PRIVATE • IN-BROWSER MEDIA STUDIO</div><h1 class="hero-title">Free Gemini Watermark Remover for Images &amp; Videos</h1><p class="hero-description">Remove compatible visible Gemini, Google Flow, Nano Banana and Veo watermarks using a private, browser-based image and video tool. Preview, fine-tune and export without uploading your files to our servers.</p><div class="cf-hero-actions"><a class="cf-primary-link" href="#workspace">Start processing <span>↗</span></a><span class="cf-hero-note">Free to use · No sign-up</span></div><div class="cf-metrics"><span><b>01</b> Import</span><span><b>02</b> Fine-tune</span><span><b>03</b> Export</span></div></div>
+<!-- Left Decorative Background Frame -->
+<!-- Right Decorative Background Frame -->
+<!-- Tab Switcher -->
+<section class="cf-section-head"><div><span class="cf-kicker">THE WORKSPACE</span><h2>One studio. Two workflows.</h2></div><p>Choose your media type below, then adjust the watermark mask until the preview looks right.</p></section><div class="tab-container" id="workspace">
+<button class="tab-btn active" id="tab-image">
+<iconify-icon icon="ph:image-bold" width="18"></iconify-icon>
+<span>Image Remover</span>
+</button>
+<button class="tab-btn" id="tab-video">
+<iconify-icon icon="ph:video-bold" width="18"></iconify-icon>
+<span>Video Remover</span>
+</button>
+</div>
+<!-- Image Removal Panel -->
+<section class="card" id="panel-image">
+<div class="dropzone" id="img-dropzone">
+<div class="dropzone-icon">
+<iconify-icon icon="ph:upload-simple-bold"></iconify-icon>
+</div>
+<p class="dropzone-title">Upload or drag your Gemini or Nano Banana Image</p>
+<p class="dropzone-sub">Supports PNG, JPG, WebP</p>
+<input accept="image/*" class="hidden" id="img-input" type="file"/>
+</div>
+<!-- Image Tuner & Live Preview Container -->
+<div class="tuner-container hidden" id="img-tuner-container">
+<div class="detect-badge hidden" id="img-detect-badge"></div>
+<div class="tuner-preview-row">
+<div class="tuner-canvas-box main-box">
+<span class="canvas-title">
+<iconify-icon icon="ph:frame-corners" width="14"></iconify-icon>
+              Preview (Full Frame)
+            </span>
+<div class="canvas-wrapper">
+<canvas id="img-main-canvas"></canvas>
+</div>
+</div>
+<div class="tuner-canvas-box zoom-box">
+<div class="zoom-card">
+<span class="canvas-title text-blue-600">
+<iconify-icon icon="ph:magnifying-glass-plus" width="14"></iconify-icon>
+                Zoomed Original
+              </span>
+<div class="canvas-wrapper">
+<canvas height="200" id="img-zoom-canvas" width="200"></canvas>
+</div>
+</div>
+<div class="zoom-card">
+<span class="canvas-title text-green-600">
+<iconify-icon icon="ph:check-circle" width="14"></iconify-icon>
+                Zoomed Cleaned
+              </span>
+<div class="canvas-wrapper">
+<canvas height="200" id="img-zoom-cleaned-canvas" width="200"></canvas>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Select Model Presets -->
+<div class="tuner-preset-row">
+<span class="tuner-preset-label">Model Preset:</span>
+<div class="tuner-preset-buttons">
+<button class="btn-preset active" data-preset="new" id="btn-preset-img-nano" type="button">
+<iconify-icon icon="ph:sparkle-bold"></iconify-icon> Gemini / Nano Banana (Adaptive)
+            </button>
+<button class="btn-preset" data-preset="classic" id="btn-preset-img-classic" type="button">
+<iconify-icon icon="ph:corners-out"></iconify-icon> Classic Corner (Fixed)
+            </button>
+</div>
+</div>
+<div class="tuner-sliders mt-2">
+<div class="slider-group">
+<div class="tuner-slider-label">
+<span>Strength (Gain)</span>
+<span id="lbl-img-gain">0.60x</span>
+</div>
+<input id="slider-img-gain" max="3" min="0.1" step="0.05" type="range" value="0.6"/>
+</div>
+<div class="slider-group">
+<div class="tuner-slider-label">
+<span>Size Scale</span>
+<span id="lbl-img-scale">1.00x</span>
+</div>
+<input id="slider-img-scale" max="2" min="0.5" step="0.05" type="range" value="1.0"/>
+</div>
+<div class="slider-group">
+<div class="tuner-slider-label">
+<span>Position X</span>
+<span id="lbl-img-offset-x">-128px</span>
+</div>
+<input id="slider-img-offset-x" max="150" min="-250" step="1" type="range" value="-128"/>
+</div>
+<div class="slider-group">
+<div class="tuner-slider-label">
+<span>Position Y</span>
+<span id="lbl-img-offset-y">-128px</span>
+</div>
+<input id="slider-img-offset-y" max="150" min="-250" step="1" type="range" value="-128"/>
+</div>
+</div>
+<div class="tuner-actions">
+<button class="btn btn-secondary text-xs" id="btn-img-reset-sliders">
+<iconify-icon icon="ph:arrow-counter-clockwise"></iconify-icon> Reset Sliders
+          </button>
+<button class="btn btn-primary" id="btn-img-export">
+<iconify-icon icon="ph:eraser"></iconify-icon> Remove &amp; Export Image
+          </button>
+</div>
+</div>
+<div class="hidden mt-4" id="img-results"></div>
+</section>
+<!-- Video Removal Panel -->
+<section class="card hidden" id="panel-video">
+<div class="dropzone" id="video-dropzone">
+<div class="dropzone-icon">
+<iconify-icon icon="ph:video-bold"></iconify-icon>
+</div>
+<p class="dropzone-title">Upload or drag a Gemini Omni, Google Flow, or Veo video</p>
+<p class="dropzone-sub">Supports MP4, WebM, MOV</p>
+<input accept="video/*" class="hidden" id="video-input" type="file"/>
+</div>
+<!-- Video Tuner & Live Preview Container -->
+<div class="tuner-container hidden" id="video-tuner-container">
+<div class="detect-badge hidden" id="video-detect-badge"></div>
+<div class="tuner-preview-row">
+<div class="tuner-canvas-box main-box">
+<span class="canvas-title">
+<iconify-icon icon="ph:frame-corners" width="14"></iconify-icon>
+              Preview (Full Frame)
+            </span>
+<div class="canvas-wrapper">
+<canvas id="video-main-canvas"></canvas>
+</div>
+</div>
+<div class="tuner-canvas-box zoom-box">
+<div class="zoom-card">
+<span class="canvas-title text-blue-600">
+<iconify-icon icon="ph:magnifying-glass-plus" width="14"></iconify-icon>
+                Zoomed Original
+              </span>
+<div class="canvas-wrapper">
+<canvas height="200" id="video-zoom-canvas" width="200"></canvas>
+</div>
+</div>
+<div class="zoom-card">
+<span class="canvas-title text-green-600">
+<iconify-icon icon="ph:check-circle" width="14"></iconify-icon>
+                Zoomed Cleaned
+              </span>
+<div class="canvas-wrapper">
+<canvas height="200" id="video-zoom-cleaned-canvas" width="200"></canvas>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Select Video Model Presets -->
+<div class="tuner-preset-row">
+<span class="tuner-preset-label">Model Preset:</span>
+<div class="tuner-preset-buttons">
+<button class="btn-preset active" data-preset="veo" id="btn-preset-vid-omni" type="button">
+<iconify-icon icon="ph:video-camera-bold"></iconify-icon> Gemini Omni &amp; Flow (Adaptive)
+            </button>
+<button class="btn-preset" data-preset="corner" id="btn-preset-vid-veo" type="button">
+<iconify-icon icon="ph:corners-out"></iconify-icon> Veo (Corner)
+            </button>
+<button class="btn-preset" data-preset="sparkle" id="btn-preset-vid-sparkle" type="button">
+<iconify-icon icon="ph:sparkle-bold"></iconify-icon> Standard Sparkle
+            </button>
+</div>
+</div>
+<div class="tuner-sliders mt-2">
+<div class="slider-group">
+<div class="tuner-slider-label">
+<span>Strength (Gain)</span>
+<span id="lbl-video-gain">0.60x</span>
+</div>
+<input id="slider-video-gain" max="3" min="0.1" step="0.05" type="range" value="0.6"/>
+</div>
+<div class="slider-group">
+<div class="tuner-slider-label">
+<span>Size Scale</span>
+<span id="lbl-video-scale">1.00x</span>
+</div>
+<input id="slider-video-scale" max="2" min="0.5" step="0.05" type="range" value="1.0"/>
+</div>
+<div class="slider-group">
+<div class="tuner-slider-label">
+<span>Position X</span>
+<span id="lbl-video-offset-x">-24px</span>
+</div>
+<input id="slider-video-offset-x" max="150" min="-150" step="1" type="range" value="-24"/>
+</div>
+<div class="slider-group">
+<div class="tuner-slider-label">
+<span>Position Y</span>
+<span id="lbl-video-offset-y">-24px</span>
+</div>
+<input id="slider-video-offset-y" max="150" min="-150" step="1" type="range" value="-24"/>
+</div>
+</div>
+<div class="tuner-actions">
+<button class="btn btn-secondary text-xs" id="btn-video-reset-sliders">
+<iconify-icon icon="ph:arrow-counter-clockwise"></iconify-icon> Reset Sliders
+          </button>
+<button class="btn btn-primary" id="btn-video-export">
+<iconify-icon icon="ph:eraser"></iconify-icon> Remove &amp; Export Video MP4
+          </button>
+</div>
+</div>
+<!-- Processing Progress -->
+<div class="hidden mt-4 text-center" id="video-status">
+<p class="mb-2">Cleaning &amp; Encoding Video...</p>
+<div class="progress-bar-container">
+<div class="progress-bar-fill" id="video-progress-bar"></div>
+</div>
+<p class="progress-text" id="video-progress-text">0%</p>
+</div>
+<div class="hidden mt-4" id="video-results"></div>
+</section>
+<!-- How It Works Step-by-Step Section -->
+<section aria-label="Watermark removal guides" class="seo-hub"><span class="cf-kicker">GUIDES &amp; SUPPORTED WORKFLOWS</span><h2>Find the right watermark workflow</h2><p>Understand the supported file types, controls and limitations before processing your media.</p><a href="/gemini-image-watermark-remover/">Gemini image watermark remover ↗</a><a href="/gemini-video-watermark-remover/">Gemini video watermark remover ↗</a><a href="/google-flow-watermark-remover/">Google Flow watermark remover ↗</a><a href="/nano-banana-watermark-remover/">Nano Banana watermark remover ↗</a><a href="/veo-watermark-remover/">Veo watermark remover ↗</a></section><section class="how-it-works-section" id="how-it-works">
+<h2 class="section-title">How to Remove Gemini Watermark</h2>
+<p class="guide-subtitle" style="margin-bottom: 2rem;">
+        Whether you want to <strong>remove Gemini watermark from video</strong> or clean Nano Banana AI photos, follow
+        these 3 simple steps to <strong>remove watermark Gemini</strong> cleanly with zero blur.
+      </p>
+<div class="steps-grid">
+<div class="step-card">
+<div class="step-badge">1</div>
+<div class="step-icon">
+<iconify-icon icon="ph:upload-simple" width="26"></iconify-icon>
+</div>
+<h3 class="step-title">Upload Media</h3>
+<p class="step-desc">
+            Select or drag &amp; drop your Google Gemini image or Veo 3 / Google Flow video into the remover.
+          </p>
+</div>
+<div class="step-card">
+<div class="step-badge">2</div>
+<div class="step-icon">
+<iconify-icon icon="ph:sliders-horizontal" width="26"></iconify-icon>
+</div>
+<h3 class="step-title">Adjust &amp; Align</h3>
+<p class="step-desc">
+            Fine-tune the size and position sliders. Use the dual zoomed preview corners for pixel-perfect logo
+            alignment.
+          </p>
+</div>
+<div class="step-card">
+<div class="step-badge">3</div>
+<div class="step-icon">
+<iconify-icon icon="ph:download-simple" width="26"></iconify-icon>
+</div>
+<h3 class="step-title">Export Clean Media</h3>
+<p class="step-desc">
+            Click Remove &amp; Export to download your clean, watermark-free file locally with zero quality loss.
+          </p>
+</div>
+</div>
+</section>
+<!-- Before & After Comparison Section -->
+<section class="comparison-section" id="comparison">
+<div class="comparison-layout">
+<!-- Left Side: Title & Description -->
+<div class="comparison-content">
+<h2 class="comparison-title">Before &amp; After: Gemini Watermark &amp; Logo Remover</h2>
+<p class="comparison-subtitle">
+            Instead of blurry AI inpainting, our <strong>Gemini logo remover</strong> uses <strong>exact mathematical
+              alpha unblending</strong> to
+            subtract the transparent Gemini watermark mask pixel-by-pixel—restoring 100% of your original image quality.
+          </p>
+</div>
+<!-- Right Side: Both Before and After Images -->
+<div class="comparison-media">
+<div class="comparison-card">
+<span class="comparison-badge badge-before">
+<iconify-icon icon="ph:x-circle" width="14"></iconify-icon> Before
+            </span>
+<div class="comparison-img-wrapper checker">
+<img alt="Google Gemini image with visible watermark logo before removal" decoding="async" height="400" loading="lazy" src="./assets/before.webp" width="400"/>
+</div>
+</div>
+<div class="comparison-card">
+<span class="comparison-badge badge-after">
+<iconify-icon icon="ph:check-circle" width="14"></iconify-icon> After
+            </span>
+<div class="comparison-img-wrapper checker">
+<img alt="Clean Google Gemini image after watermark and logo removal with zero quality loss" decoding="async" height="400" loading="lazy" src="./assets/after.webp" width="400"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Gemini Watermark Methods Guide -->
+<section class="guide-section" id="guide">
+<div class="guide-header">
+<h2 class="section-title">How to Remove Google Gemini Watermark &amp; Logo</h2>
+<p class="guide-subtitle">
+          Can you turn off Gemini watermarks in settings? No setting exists—Google mandates visual watermarks on all AI media.
+          Use our specialized tools below to restore 100% original pixel clarity.
+        </p>
+</div>
+<!-- Settings Myth vs Reality Notice Box -->
+<div class="settings-myth-box" data-nosnippet="">
+<div class="myth-badge">
+<iconify-icon icon="ph:warning-circle-bold" width="18"></iconify-icon>
+<span>Can You Disable Watermarks in Google Gemini Settings or Prompts?</span>
+</div>
+<p class="myth-text">
+<strong>No, there is no setting to turn off watermarks in Google Gemini.</strong> Google automatically and permanently embeds the transparent 4-point sparkle logo on all Imagen 3 photos and Veo videos for AI safety and provenance. Negative prompts (such as <em>"no watermark"</em> or <em>"clean image"</em>) are ignored by Google's backend pipeline.
+        </p>
+<p class="myth-solution">
+<strong>The only verified solution:</strong> Upload your file into our free client-side tool. Our mathematical alpha unblender reverse-engineers the exact transparency values to recover original pixels with <strong>zero blur and zero quality loss</strong>.
+        </p>
+</div>
+<div class="methods-grid">
+<!-- Card 1: Gemini Image Watermark Removal -->
+<div class="method-card featured-method">
+<div class="method-badge tool-badge">
+<iconify-icon icon="ph:image-bold" width="14"></iconify-icon>
+            Method 1: Gemini Images (Imagen 3 &amp; Nano Banana)
+          </div>
+<h3 class="method-title">Remove Sparkle Logo from Gemini Photos</h3>
+<p class="method-desc">
+            Instantly unblend transparent corner watermarks from Imagen 3 photos, Gemini chat generations, and Nano Banana illustrations without blurry AI inpainting.
+          </p>
+<ol class="method-steps">
+<li class="method-step-item">
+<span class="step-num-pill">1</span>
+<div class="step-text">
+<strong>Upload Image:</strong> Drag &amp; drop your Gemini image (PNG, JPG, or WebP) into the image remover above.
+              </div>
+</li>
+<li class="method-step-item">
+<span class="step-num-pill">2</span>
+<div class="step-text">
+<strong>Instant Alpha Unblending:</strong> Our engine applies mathematical reverse-alpha subtraction to reconstruct original pixel values under the logo.
+              </div>
+</li>
+<li class="method-step-item">
+<span class="step-num-pill">3</span>
+<div class="step-text">
+<strong>Download Lossless File:</strong> Preview the split-screen zoom comparison and export your clean, full-resolution image directly to your device.
+              </div>
+</li>
+</ol>
+<div class="method-action">
+<a class="btn btn-primary method-btn" href="#panel-image">
+<iconify-icon icon="ph:arrow-up-bold" width="16"></iconify-icon>
+<span>Use Free Image Watermark Remover</span>
+</a>
+</div>
+</div>
+<!-- Card 2: Gemini & Veo Video Watermark Removal -->
+<div class="method-card featured-method">
+<div class="method-badge video-badge-card">
+<iconify-icon icon="ph:video-camera-bold" width="14"></iconify-icon>
+            Method 2: Gemini &amp; Veo Videos (Flow, Omni, Veo 3)
+          </div>
+<h3 class="method-title">Clean Watermarks from Gemini AI Video Clips</h3>
+<p class="method-desc">
+            Frame-by-frame hardware-accelerated watermark removal for Google Flow, Gemini Omni multimodal clips, and Veo 3 videos with 100% original audio preservation.
+          </p>
+<ol class="method-steps">
+<li class="method-step-item">
+<span class="step-num-pill">1</span>
+<div class="step-text">
+<strong>Upload AI Video:</strong> Drop your MP4, WebM, or MOV clip into our high-performance Video Remover tab.
+              </div>
+</li>
+<li class="method-step-item">
+<span class="step-num-pill">2</span>
+<div class="step-text">
+<strong>WebCodecs GPU Processing:</strong> High-speed in-browser decoding cleans every video frame without server lag or quality compression.
+              </div>
+</li>
+<li class="method-step-item">
+<span class="step-num-pill">3</span>
+<div class="step-text">
+<strong>Export Clean HD Video:</strong> Download your finished watermark-free video with pristine visual clarity and original multi-track audio intact.
+              </div>
+</li>
+</ol>
+<div class="method-action">
+<a class="btn btn-primary method-btn" href="#panel-video">
+<iconify-icon icon="ph:play-bold" width="16"></iconify-icon>
+<span>Use Free Video Watermark Remover</span>
+</a>
+</div>
+</div>
+</div>
+<!-- SynthID vs Visible Watermark Callout Box -->
+<div class="synthid-card">
+<div class="synthid-header">
+<div>
+<h4 class="synthid-title">Visible Gemini Logo vs SynthID Digital Watermark</h4>
+<p class="synthid-sub">Understanding Google's two-layer AI protection mechanism</p>
+</div>
+</div>
+<div class="synthid-grid">
+<div class="synthid-col">
+<strong class="synthid-col-title"><iconify-icon icon="ph:eye-bold" width="16"></iconify-icon> 1. Visible
+              Gemini Logo</strong>
+<p>The semi-transparent white 4-point sparkle logo rendered in the corner of images and Veo videos. This is
+              what our
+              Gemini watermark remover cleans mathematically with zero quality loss.</p>
+</div>
+<div class="synthid-col">
+<strong class="synthid-col-title"><iconify-icon icon="ph:fingerprint-bold" width="16"></iconify-icon> 2.
+              SynthID (Imperceptible Metadata)</strong>
+<p>An invisible cryptographic watermark developed by Google DeepMind embedded directly into image pixel
+              noise and audio tracks for AI detection. It does not affect visible image aesthetics.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Supported Google AI Models & Media Showcase Section -->
+<section class="models-section" id="models-showcase">
+<div class="models-header">
+<h2 class="section-title">Supported Google AI Models &amp; Media</h2>
+<p class="models-subtitle">
+          Our browser-based mathematical unblending engine is custom-calibrated for visible watermarks across Google's
+          entire generative media lineup.
+        </p>
+</div>
+<div class="models-grid">
+<!-- Model 1: Gemini Nano Banana -->
+<div class="model-card">
+<div class="model-card-header">
+<div class="model-badge badge-image">
+<iconify-icon icon="ph:image-square-bold" width="16"></iconify-icon> AI Image Model
+            </div>
+<span class="model-format-tag">PNG · JPG · WebP</span>
+</div>
+<h3 class="model-name">Google Gemini "Nano Banana"</h3>
+<p class="model-desc">
+            Known throughout developer and benchmark communities as "Nano Banana," Google's conversational Gemini image
+            generation engine embeds a semi-transparent 4-point sparkle watermark in the corner. Our tool reverses the
+            exact alpha blending formula to recover 100% original pixel clarity.
+          </p>
+<ul class="model-features">
+<li><iconify-icon icon="ph:check-bold"></iconify-icon> Adaptive inset &amp; corner watermark support</li>
+<li><iconify-icon icon="ph:check-bold"></iconify-icon> Zero blur, zero AI hallucination</li>
+<li><iconify-icon icon="ph:check-bold"></iconify-icon> Instant lossless PNG download</li>
+</ul>
+</div>
+<!-- Model 2: Google Flow -->
+<div class="model-card">
+<div class="model-card-header">
+<div class="model-badge badge-video">
+<iconify-icon icon="ph:film-slate-bold" width="16"></iconify-icon> AI Creative Studio
+            </div>
+<span class="model-format-tag">MP4 · WebM · MOV</span>
+</div>
+<h3 class="model-name">Google Flow Studio Videos</h3>
+<p class="model-desc">
+            Google Flow is the creative workspace for directing scenes, combining Veo video generation and audio tracks.
+            Flow exports carry visible corner logos that can distract from your creative vision. We clean every frame
+            locally in your browser.
+          </p>
+<ul class="model-features">
+<li><iconify-icon icon="ph:check-bold"></iconify-icon> Frame-by-frame mathematical unblending</li>
+<li><iconify-icon icon="ph:check-bold"></iconify-icon> Hardware-accelerated WebCodecs processing</li>
+<li><iconify-icon icon="ph:check-bold"></iconify-icon> 100% original audio preservation</li>
+</ul>
+</div>
+<!-- Model 3: Gemini Omni -->
+<div class="model-card">
+<div class="model-card-header">
+<div class="model-badge badge-video">
+<iconify-icon icon="ph:video-camera-bold" width="16"></iconify-icon> Multimodal Video
+            </div>
+<span class="model-format-tag">MP4 · WebM · MOV</span>
+</div>
+<h3 class="model-name">Gemini Omni Video Generations</h3>
+<p class="model-desc">
+            Google DeepMind's native multimodal Gemini Omni models deliver "Any-Input-to-Video" capabilities and
+            conversational video manipulation. Video clips rendered by Gemini Omni feature visible sparkle overlays,
+            which our engine unblends with zero blur.
+          </p>
+<ul class="model-features">
+<li><iconify-icon icon="ph:check-bold"></iconify-icon> Compatible with conversational video edits</li>
+<li><iconify-icon icon="ph:check-bold"></iconify-icon> Real-time live tuner with dual preview</li>
+<li><iconify-icon icon="ph:check-bold"></iconify-icon> Private processing with zero cloud uploads</li>
+</ul>
+</div>
+<!-- Model 4: Google Veo / Veo 3 -->
+<div class="model-card">
+<div class="model-card-header">
+<div class="model-badge badge-video">
+<iconify-icon icon="ph:video-bold" width="16"></iconify-icon> Cinematic Video
+            </div>
+<span class="model-format-tag">MP4 · WebM · MOV</span>
+</div>
+<h3 class="model-name">Google DeepMind Veo / Veo 3</h3>
+<p class="model-desc">
+            DeepMind's state-of-the-art cinematic video generation model creates stunning 1080p clips with corner
+            watermark branding. Our tool decodes each frame, removes the watermark mask mathematically, and exports
+            pristine video.
+          </p>
+<ul class="model-features">
+<li><iconify-icon icon="ph:check-bold"></iconify-icon> Supports Veo 2 and Veo 3 outputs</li>
+<li><iconify-icon icon="ph:check-bold"></iconify-icon> Lossless mathematical reconstruction</li>
+<li><iconify-icon icon="ph:check-bold"></iconify-icon> Completely free with no subscriptions</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Dedicated Video Watermark Remover Guide (SEO Optimized) -->
+<section class="video-guide-section" id="video-guide">
+<div class="video-guide-card">
+<div class="video-guide-header">
+<div class="method-badge tool-badge">
+<iconify-icon icon="ph:video-camera-bold" width="14"></iconify-icon>
+            Gemini Video Watermark Remover
+          </div>
+<h2 class="video-guide-title">Clearframe Studio Video: Omni, Flow &amp; Veo 3</h2>
+<p class="video-guide-desc">
+            Looking for a fast, free <strong>gemini logo remover from video</strong>? Our browser-based engine applies
+            mathematical alpha unblending to Google Flow, Gemini Omni, and Veo 3 AI videos frame-by-frame with full
+            audio track preservation and zero blur.
+          </p>
+</div>
+<div class="video-guide-steps-grid">
+<div class="video-guide-step">
+<span class="step-num-pill">1</span>
+<div class="video-guide-step-content">
+<strong>Select Video Mode</strong>
+<p>Switch to the <strong>Video Remover</strong> tab above or click the button below to activate the video
+                canvas.</p>
+</div>
+</div>
+<div class="video-guide-step">
+<span class="step-num-pill">2</span>
+<div class="video-guide-step-content">
+<strong>Upload Video Clip</strong>
+<p>Drag and drop your Google Flow, Gemini Omni, or Veo 3 generated video (supports MP4, WebM, and MOV
+                formats).</p>
+</div>
+</div>
+<div class="video-guide-step">
+<span class="step-num-pill">3</span>
+<div class="video-guide-step-content">
+<strong>Frame-by-Frame Unblending</strong>
+<p>Hardware-accelerated WebCodecs decodes each frame, removing the watermark mask while keeping the
+                original audio track intact.</p>
+</div>
+</div>
+<div class="video-guide-step">
+<span class="step-num-pill">4</span>
+<div class="video-guide-step-content">
+<strong>Download Clean MP4</strong>
+<p>Export your crystal-clear, watermark-free video directly to your device with zero cloud uploads.</p>
+</div>
+</div>
+</div>
+<div class="video-guide-cta">
+<a class="btn btn-primary method-btn" href="#panel-video" id="btn-cta-video-guide">
+<iconify-icon icon="ph:video-camera-bold" width="16"></iconify-icon>
+<span>Open Video Watermark Remover</span>
+</a>
+</div>
+</div>
+</section>
+<!-- Features Section (SEO Optimized) -->
+<section class="features-section" id="features">
+<h2 class="section-title">Why Choose Our Gemini Logo &amp; Watermark Remover?</h2>
+<div class="features-grid">
+<div class="feature-card">
+<iconify-icon class="feature-icon" icon="ph:shield-check" width="24"></iconify-icon>
+<div class="feature-card-body">
+<h3 class="feature-card-title">100% Private &amp; Local</h3>
+<p class="feature-card-desc">
+              All media is processed completely inside your browser using HTML5 Canvas and WebCodecs. Your photos and
+              videos never get uploaded to any external server.
+            </p>
+</div>
+</div>
+<div class="feature-card">
+<iconify-icon class="feature-icon" icon="ph:cube-transparent" width="24"></iconify-icon>
+<div class="feature-card-body">
+<h3 class="feature-card-title">Zero Blur Mathematical Precision</h3>
+<p class="feature-card-desc">
+              Reverses Google Gemini's exact transparent alpha blending formula instead of blurry AI inpainting,
+              restoring 100% of your original pixel clarity.
+            </p>
+</div>
+</div>
+<div class="feature-card">
+<iconify-icon class="feature-icon" icon="ph:video" width="24"></iconify-icon>
+<div class="feature-card-body">
+<h3 class="feature-card-title">Gemini Video Watermark Remover</h3>
+<p class="feature-card-desc">
+              Easily remove Gemini watermark from video clips (Gemini Omni, Google Flow &amp; Veo 3) with fast
+              frame-by-frame processing and original audio track preservation.
+            </p>
+</div>
+</div>
+<div class="feature-card">
+<iconify-icon class="feature-icon" icon="ph:sliders-horizontal" width="24"></iconify-icon>
+<div class="feature-card-body">
+<h3 class="feature-card-title">Live Tuner &amp; Dual Preview</h3>
+<p class="feature-card-desc">
+              Adjust strength, scale, and offset in real-time. Use the side-by-side zoomed original and cleaned preview
+              windows for exact logo alignment.
+            </p>
+</div>
+</div>
+<div class="feature-card">
+<iconify-icon class="feature-icon" icon="ph:file-image" width="24"></iconify-icon>
+<div class="feature-card-body">
+<h3 class="feature-card-title">Multi-Format Support</h3>
+<p class="feature-card-desc">
+              Works effortlessly with PNG, JPG, WebP images, as well as MP4, WebM, and MOV video formats with instant
+              browser downloads.
+            </p>
+</div>
+</div>
+<div class="feature-card">
+<iconify-icon class="feature-icon" icon="ph:lightning" width="24"></iconify-icon>
+<div class="feature-card-body">
+<h3 class="feature-card-title">Clearframe Studio Free Online</h3>
+<p class="feature-card-desc">
+              Enjoy our Gemini watermark remover free online with no signup required, no subscription fees, no file
+              count limits, and no secondary watermarks added to your cleaned output files.
+            </p>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQ Section (Adaptive Desktop & Mobile Design) -->
+<section class="faq-section" id="faq">
+<div class="faq-layout">
+<!-- Desktop Sticky Left Header -->
+<div class="faq-header-col">
+<h2 class="faq-title">Frequently Asked Questions</h2>
+<p class="faq-subtitle">
+            Everything you need to know about our free online Gemini watermark and logo removal tool.
+          </p>
+</div>
+<!-- Right Accordion List -->
+<div class="faq-list-col">
+<div class="faq-container">
+<details class="faq-item">
+<summary class="faq-question">
+<div class="faq-q-left">
+<span class="faq-num">01</span>
+<span>How to remove Gemini watermark from video and AI images?</span>
+</div>
+<iconify-icon class="faq-icon" icon="ph:caret-down-bold" width="16"></iconify-icon>
+</summary>
+<div class="faq-answer">
+                To <strong>remove Gemini watermark from video</strong> (Google Flow, Gemini Omni, Veo) or Nano Banana AI
+                images, simply drag &amp; drop your file into our <strong>Gemini watermark remover free</strong> tool
+                above. Whether you need to <strong>gemini remove watermark</strong> artifacts or clean logos, our tool
+                mathematically unblends the transparent watermark pixel-by-pixel, restoring 100% of your original media
+                clarity without any blurry AI smudge.
+              </div>
+</details>
+<details class="faq-item">
+<summary class="faq-question">
+<div class="faq-q-left">
+<span class="faq-num">02</span>
+<span>Does this tool work on Google Gemini "Nano Banana" images?</span>
+</div>
+<iconify-icon class="faq-icon" icon="ph:caret-down-bold" width="16"></iconify-icon>
+</summary>
+<div class="faq-answer">
+                Yes! "Nano Banana" is the widely recognized community and industry codename for Google's conversational
+                Gemini image generation engine. Our tool is optimized to detect and reverse the 4-point sparkle
+                watermark on Nano Banana images with 100% mathematical precision and zero blur.
+              </div>
+</details>
+<details class="faq-item">
+<summary class="faq-question">
+<div class="faq-q-left">
+<span class="faq-num">03</span>
+<span>Can I remove watermarks from Google Flow and Gemini Omni videos?</span>
+</div>
+<iconify-icon class="faq-icon" icon="ph:caret-down-bold" width="16"></iconify-icon>
+</summary>
+<div class="faq-answer">
+                Yes! Our browser engine directly cleans visible watermarks from Google Flow studio videos and Gemini
+                Omni multimodal clips (MP4, WebM, MOV) frame-by-frame using WebCodecs, fully preserving your original
+                audio track and video resolution.
+              </div>
+</details>
+<details class="faq-item">
+<summary class="faq-question">
+<div class="faq-q-left">
+<span class="faq-num">04</span>
+<span>How does this mathematical logo remover work?</span>
+</div>
+<iconify-icon class="faq-icon" icon="ph:caret-down-bold" width="16"></iconify-icon>
+</summary>
+<div class="faq-answer">
+                Google Gemini embeds a transparent logo mask into generated images and videos using alpha blending.
+                Instead of guessing pixels like AI object removers, our watermark remover applies the exact reverse
+                mathematical formula <code>Original = (Watermarked - Logo * Alpha) / (1 - Alpha)</code> to unblend the
+                watermark pixel-by-pixel with zero quality loss.
+              </div>
+</details>
+<details class="faq-item">
+<summary class="faq-question">
+<div class="faq-q-left">
+<span class="faq-num">05</span>
+<span>Is this Gemini watermark remover completely free to use?</span>
+</div>
+<iconify-icon class="faq-icon" icon="ph:caret-down-bold" width="16"></iconify-icon>
+</summary>
+<div class="faq-answer">
+                Yes, our <strong>Gemini watermark remover free</strong> online tool is 100% free with no limits! There
+                are no hidden subscription fees, no user registration
+                required, no file count limits, and no secondary watermarks added to your exported files.
+              </div>
+</details>
+<details class="faq-item">
+<summary class="faq-question">
+<div class="faq-q-left">
+<span class="faq-num">06</span>
+<span>Can I remove Gemini watermark from Veo 3 videos and Imagen 3 photos?</span>
+</div>
+<iconify-icon class="faq-icon" icon="ph:caret-down-bold" width="16"></iconify-icon>
+</summary>
+<div class="faq-answer">
+                Yes! Our tool fully supports Google Gemini Imagen 3 / Nano Banana images (PNG, JPG, WebP) and Gemini Veo
+                3 AI videos
+                (MP4, WebM, MOV) with full audio preservation and GPU-accelerated WebCodecs.
+              </div>
+</details>
+<details class="faq-item">
+<summary class="faq-question">
+<div class="faq-q-left">
+<span class="faq-num">07</span>
+<span>Can I turn off watermarks directly in Google Gemini settings?</span>
+</div>
+<iconify-icon class="faq-icon" icon="ph:caret-down-bold" width="16"></iconify-icon>
+</summary>
+<div class="faq-answer">
+                No. Google Gemini does not provide any setting, toggle, or prompt command to disable visible
+                watermarks or SynthID metadata. Google permanently embeds the 4-point sparkle logo on all Imagen 3
+                and Veo AI outputs for attribution. The only way to remove it cleanly without blur is by unblending
+                it with our free client-side tool above.
+              </div>
+</details>
+<details class="faq-item">
+<summary class="faq-question">
+<div class="faq-q-left">
+<span class="faq-num">08</span>
+<span>What is the difference between visual Gemini logo and SynthID?</span>
+</div>
+<iconify-icon class="faq-icon" icon="ph:caret-down-bold" width="16"></iconify-icon>
+</summary>
+<div class="faq-answer">
+                Visual watermarks are the transparent 4-point sparkle logos seen in the corner of images and videos,
+                which our tool removes cleanly. SynthID is an imperceptible cryptographic watermark embedded directly
+                into pixel noise by Google DeepMind for AI detection that does not affect visual appearance.
+              </div>
+</details>
+<details class="faq-item">
+<summary class="faq-question">
+<div class="faq-q-left">
+<span class="faq-num">09</span>
+<span>Why is mathematical watermark removal better than AI inpainting?</span>
+</div>
+<iconify-icon class="faq-icon" icon="ph:caret-down-bold" width="16"></iconify-icon>
+</summary>
+<div class="faq-answer">
+                AI inpainting tools guess what lies beneath the watermark by blurring or smudging pixels, causing loss
+                of detail. Mathematical alpha unblending subtracts the exact transparency values of the Gemini logo,
+                revealing the actual sharp original pixels underneath.
+              </div>
+</details>
+<details class="faq-item">
+<summary class="faq-question">
+<div class="faq-q-left">
+<span class="faq-num">10</span>
+<span>Are my images and videos kept private and secure?</span>
+</div>
+<iconify-icon class="faq-icon" icon="ph:caret-down-bold" width="16"></iconify-icon>
+</summary>
+<div class="faq-answer">
+                Absolutely. All image and video processing is executed 100% locally inside your web browser using HTML5
+                Canvas and WebCodecs APIs. Your files are never uploaded, stored, or transmitted to any external server.
+              </div>
+</details>
+<details class="faq-item">
+<summary class="faq-question">
+<div class="faq-q-left">
+<span class="faq-num">11</span>
+<span>What image and video file formats are supported?</span>
+</div>
+<iconify-icon class="faq-icon" icon="ph:caret-down-bold" width="16"></iconify-icon>
+</summary>
+<div class="faq-answer">
+                We support all major formats: Images (PNG, JPG, WebP) and Videos (MP4, WebM, MOV) with instant browser
+                downloads.
+              </div>
+</details>
+<details class="faq-item">
+<summary class="faq-question">
+<div class="faq-q-left">
+<span class="faq-num">12</span>
+<span>Can I use this Gemini watermark remover on mobile phones and tablets?</span>
+</div>
+<iconify-icon class="faq-icon" icon="ph:caret-down-bold" width="16"></iconify-icon>
+</summary>
+<div class="faq-answer">
+                Yes! The website is fully mobile-responsive and works seamlessly on smartphones and tablets across iOS
+                (Safari) and Android (Chrome/Edge/Firefox).
+              </div>
+</details>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="app-footer"><div class="cf-footer"><div><a class="cf-brand" href="/"><span class="cf-mark">C<span>✦</span></span><span>clearframe<span class="cf-brand-dot">.</span></span></a><p>Precision tools for visual creators.<br/>Processed locally. Designed to stay yours.</p></div><div class="cf-footer-links"><a href="./privacy-policy.html">Privacy</a><a href="./terms-of-service.html">Terms</a><a href="./about.html">About</a><a href="./contact.html">Contact</a></div><div class="cf-footer-bottom">© 2026 Clearframe Studio · Not affiliated with Google. <a href="./LICENSE">Open-source notices</a></div></div></footer>
+</main>
+<script src="./main.js"></script>
+<!-- BuyMeACoffee Widget (Lazy Loaded for Optimal Core Web Vitals) -->
+</body>
+</html>
